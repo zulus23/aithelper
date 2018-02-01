@@ -10,7 +10,7 @@ public enum Enterprise {
     POLYPACK("Полипак") {
         @Override
         String connectString() {
-            return null;
+            return "jdbc:jtds:sqlserver://srv-sqlbox/polypack;instance=AIT";
         }
     };
 
