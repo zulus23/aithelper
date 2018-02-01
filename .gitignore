@@ -98,5 +98,5 @@ crashlytics-build.properties
 fabric.properties
 
 /.idea/
-src/main/java/ru/zhukov/ait/dao/
+
 /.idea/encodings.xml
