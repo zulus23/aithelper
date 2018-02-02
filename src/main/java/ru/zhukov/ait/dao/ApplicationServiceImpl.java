@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.zhukov.ait.domain.Enterprise;
 import ru.zhukov.ait.domain.TypeOrder;
 
+
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +17,24 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<TypeOrder> listTypeOrder() {
-        return null;
+    public ApplicationDataService createDataService(Enterprise enterprise) {
+
+        switch (enterprise){
+            case GOTEK:{
+
+            }
+            case POLYPACK:{
+
+            }
+            default:{
+
+            }
+
+        }
+
+
+        throw new UnsupportedOperationException("Method doesn't implement yet");
     }
+
+
 }

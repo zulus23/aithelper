@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.util.StringConverter;
+import ru.zhukov.ait.dao.ApplicationDataService;
 import ru.zhukov.ait.dao.ApplicationService;
 import ru.zhukov.ait.domain.Enterprise;
 
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
 public class BaseWindowController implements Initializable {
 
     private ApplicationService  applicationService;
+    private ApplicationDataService applicationDataService;
 
     @FXML
     private ComboBox<Enterprise> aitEnterprise;
@@ -45,7 +47,7 @@ public class BaseWindowController implements Initializable {
 
 
     private void enterpriseChanged(ObservableValue<? extends  Enterprise> observable,Enterprise oldEnterprise,Enterprise newEnterprise) {
-
-
+         //TODO Need create new source data for had selected enterprise instance
+         applicationDataService =  applicationService.createDataService(newEnterprise);
     }
 }

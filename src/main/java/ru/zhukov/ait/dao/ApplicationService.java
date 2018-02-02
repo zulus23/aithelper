@@ -8,8 +8,7 @@ import java.util.List;
 public interface ApplicationService {
 
     List<Enterprise> listEnterprise();
-    List<TypeOrder> listTypeOrder();
 
 
-
+    ApplicationDataService createDataService(Enterprise newEnterprise);
 }
