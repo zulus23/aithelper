@@ -70,13 +70,14 @@ public class BaseWindowController implements Initializable {
                            .complete(applicationDataService);
          CompletableFuture
                  .supplyAsync(() -> applicationDataService.listTypeOrder())
-                 .complete(e -> {
-                     aitOrderType.getItems().clear();
-                     aitOrderType.getItems().addAll(applicationDataService.listTypeOrder());
-                     aitOrderType.getSelectionModel().select(0);
-                 }
+                 .thenAccept((l) -> {
 
-         );
+                     aitOrderType.getItems().clear();
+                     aitOrderType.getItems().addAll(l);
+                     aitOrderType.getSelectionModel().select(0);
+                 });
+
+
 
        // System.out.println(applicationDataService.listTypeOrder());
     }
