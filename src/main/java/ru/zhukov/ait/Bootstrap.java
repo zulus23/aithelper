@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.zhukov.ait.config.ApplicationConfig;
+import ru.zhukov.ait.config.DatabaseConfig;
 import ru.zhukov.ait.dao.ApplicationService;
 
 import java.io.IOException;

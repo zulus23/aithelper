@@ -6,11 +6,20 @@ public enum Enterprise {
         String connectString() {
             return "jdbc:jtds:sqlserver://srv-sqlbox/ait_db;instance=AIT";
         }
+
+        @Override
+        public String nameDb() {
+            return "ait_db_tarif";
+        }
     },
     POLYPACK("Полипак") {
         @Override
         String connectString() {
             return "jdbc:jtds:sqlserver://srv-sqlbox/polypack;instance=AIT";
+        }
+        @Override
+        public String nameDb() {
+            return "polypack_tarif";
         }
     };
 
@@ -25,5 +34,6 @@ public enum Enterprise {
     }
 
     abstract String connectString();
+    public abstract String nameDb();
 
 }

@@ -9,6 +9,7 @@ import javafx.util.StringConverter;
 import ru.zhukov.ait.dao.ApplicationDataService;
 import ru.zhukov.ait.dao.ApplicationService;
 import ru.zhukov.ait.domain.Enterprise;
+import ru.zhukov.ait.domain.TypeOrder;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +21,8 @@ public class BaseWindowController implements Initializable {
 
     @FXML
     private ComboBox<Enterprise> aitEnterprise;
+    @FXML
+    private ComboBox<TypeOrder> aitOrderType;
 
     public BaseWindowController(ApplicationService applicationService) {
         this.applicationService = applicationService;
@@ -40,6 +43,19 @@ public class BaseWindowController implements Initializable {
                 return aitEnterprise.getItems().filtered(e-> e.getNameEnterprise().equals(enterpriseName)).get(0);
             }
         });
+        aitOrderType.setConverter(new StringConverter<TypeOrder>() {
+            @Override
+            public String toString(TypeOrder object) {
+                return object.getName().trim();
+            }
+
+            @Override
+            public TypeOrder fromString(String orderName) {
+                return aitOrderType.getItems().filtered(o-> o.getName().equals(orderName)).get(0);
+            }
+        });
+
+
         aitEnterprise.getSelectionModel().selectedItemProperty().addListener(this::enterpriseChanged);
 
     }
@@ -49,5 +65,9 @@ public class BaseWindowController implements Initializable {
     private void enterpriseChanged(ObservableValue<? extends  Enterprise> observable,Enterprise oldEnterprise,Enterprise newEnterprise) {
          //TODO Need create new source data for had selected enterprise instance
          applicationDataService =  applicationService.createDataService(newEnterprise);
+        aitOrderType.getItems().clear();
+         aitOrderType.getItems().addAll(applicationDataService.listTypeOrder());
+         aitOrderType.getSelectionModel().select(0);
+       // System.out.println(applicationDataService.listTypeOrder());
     }
 }

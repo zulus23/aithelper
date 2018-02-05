@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode(of = {"id"})
 public class TypeOrder {
   @Id
-  @Column(name = "kode")
+  @Column(name = "kod")
   private String id;
   @Column(name = "name_pr")
   private String name;

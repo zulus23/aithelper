@@ -8,7 +8,7 @@ import ru.zhukov.ait.dao.ApplicationServiceImpl;
 
 @Configuration
 
-@EnableJpaRepositories("ru.zhukov.ait.repo")
+
 public class ApplicationConfig {
 
     @Bean

@@ -1,11 +1,12 @@
 package ru.zhukov.ait.dao;
 
+import org.springframework.context.ApplicationContextAware;
 import ru.zhukov.ait.domain.Enterprise;
 import ru.zhukov.ait.domain.TypeOrder;
 
 import java.util.List;
 
-public interface ApplicationService {
+public interface ApplicationService{
 
     List<Enterprise> listEnterprise();
 
