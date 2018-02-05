@@ -1,6 +1,8 @@
 group 'ru.zhukov.ait'
 version '1.0-SNAPSHOT'
 
+
+
 ext {
     springVersion = '5.0.3.RELEASE'
     springDataVersion = '2.0.3.RELEASE'
