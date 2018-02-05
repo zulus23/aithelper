@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
@@ -35,29 +36,29 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationDataService createDataService(Enterprise enterprise) {
+    public CompletableFuture<ApplicationDataService> createDataService(Enterprise enterprise) {
 
         switch (enterprise){
             case GOTEK:{
 
 
-                return dataServiceMap.computeIfAbsent(enterprise,(e)-> {
+                return CompletableFuture.supplyAsync(()->dataServiceMap.computeIfAbsent(enterprise,(e)-> {
                     ctx = new AnnotationConfigApplicationContext();
                     ctx.registerBean("enterprise",Enterprise.class,() -> Enterprise.GOTEK);
                     ctx.registerBean(DatabaseConfig.class);
                     ctx.refresh();
                     return ctx.getBean(ApplicationDataService.class);
-                });
+                }));
             }
             case POLYPACK:{
 
-                return dataServiceMap.computeIfAbsent(enterprise,(e)-> {
+                return CompletableFuture.supplyAsync(()->dataServiceMap.computeIfAbsent(enterprise,(e)-> {
                     ctx = new AnnotationConfigApplicationContext();
                     ctx.registerBean("enterprise",Enterprise.class,() -> Enterprise.POLYPACK);
                     ctx.registerBean(DatabaseConfig.class);
                     ctx.refresh();
                     return  ctx.getBean(ApplicationDataService.class);
-                });
+                }));
             }
             default:{
 

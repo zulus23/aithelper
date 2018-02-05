@@ -5,11 +5,12 @@ import ru.zhukov.ait.domain.Enterprise;
 import ru.zhukov.ait.domain.TypeOrder;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface ApplicationService{
 
     List<Enterprise> listEnterprise();
 
 
-    ApplicationDataService createDataService(Enterprise newEnterprise);
+    CompletableFuture<ApplicationDataService> createDataService(Enterprise newEnterprise);
 }

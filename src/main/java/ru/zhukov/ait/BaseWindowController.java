@@ -1,5 +1,6 @@
 package ru.zhukov.ait;
 
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import ru.zhukov.ait.domain.TypeOrder;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 public class BaseWindowController implements Initializable {
 
@@ -64,10 +66,18 @@ public class BaseWindowController implements Initializable {
 
     private void enterpriseChanged(ObservableValue<? extends  Enterprise> observable,Enterprise oldEnterprise,Enterprise newEnterprise) {
          //TODO Need create new source data for had selected enterprise instance
-         applicationDataService =  applicationService.createDataService(newEnterprise);
-        aitOrderType.getItems().clear();
-         aitOrderType.getItems().addAll(applicationDataService.listTypeOrder());
-         aitOrderType.getSelectionModel().select(0);
+         applicationService.createDataService(newEnterprise)
+                           .complete(applicationDataService);
+         CompletableFuture
+                 .supplyAsync(() -> applicationDataService.listTypeOrder())
+                 .complete(e -> {
+                     aitOrderType.getItems().clear();
+                     aitOrderType.getItems().addAll(applicationDataService.listTypeOrder());
+                     aitOrderType.getSelectionModel().select(0);
+                 }
+
+         );
+
        // System.out.println(applicationDataService.listTypeOrder());
     }
 }
