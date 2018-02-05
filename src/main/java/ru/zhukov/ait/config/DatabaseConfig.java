@@ -31,13 +31,23 @@ public class DatabaseConfig {
     @Bean
     public DataSource dataSource(Enterprise enterprise){
         JtdsDataSource dataSource = new JtdsDataSource();
-        dataSource.setServerName("srv-sqlbox");
-        dataSource.setInstance("AIT");
+        if(System.getProperty("user.name").equals("Zhukov")){
+            dataSource.setServerName("localhost");
+            //dataSource.setInstance("AIT");
+            dataSource.setUser("sa");
+            dataSource.setPassword("415631234");
+
+        } else {
+            dataSource.setServerName("srv-sqlbox");
+            dataSource.setInstance("AIT");
+            dataSource.setUser("report");
+            dataSource.setPassword("report");
+        }
         dataSource.setDatabaseName(enterprise.nameDb());
-        dataSource.setUser("report");
-        dataSource.setPassword("report");
         return dataSource;
     }
+
+
 
     @Bean
     @Lazy

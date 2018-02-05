@@ -21,6 +21,17 @@ public enum Enterprise {
         public String nameDb() {
             return "polypack_tarif";
         }
+    },
+
+    INVESTHOME("Инвест Номе") {
+        @Override
+        String connectString() {
+            return "jdbc:jtds:sqlserver://srv-sqlbox/polypack;instance=AIT";
+        }
+        @Override
+        public String nameDb() {
+            return "g_invst";
+        }
     };
 
     private final String name;

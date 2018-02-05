@@ -67,15 +67,19 @@ public class BaseWindowController implements Initializable {
     private void enterpriseChanged(ObservableValue<? extends  Enterprise> observable,Enterprise oldEnterprise,Enterprise newEnterprise) {
          //TODO Need create new source data for had selected enterprise instance
          applicationService.createDataService(newEnterprise)
-                           .complete(applicationDataService);
-         CompletableFuture
-                 .supplyAsync(() -> applicationDataService.listTypeOrder())
-                 .thenAccept((l) -> {
-
-                     aitOrderType.getItems().clear();
-                     aitOrderType.getItems().addAll(l);
-                     aitOrderType.getSelectionModel().select(0);
-                 });
+                           .whenComplete((ctx,err)-> {
+                             applicationDataService = ctx;
+                             Platform.runLater(()-> {
+                                 aitOrderType.getItems().clear();
+                             });
+                           }).thenApplyAsync((e)->{
+                               return e.listTypeOrder();
+                           }).whenComplete((l,error)->{
+                              Platform.runLater(()->{
+                                  aitOrderType.getItems().addAll(l);
+                                  aitOrderType.getSelectionModel().select(0);
+                              });
+                            });
 
 
 
