@@ -2,17 +2,27 @@ package ru.zhukov.ait;
 
 import javafx.application.Platform;
 import javafx.beans.Observable;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import ru.zhukov.ait.dao.ApplicationDataService;
 import ru.zhukov.ait.dao.ApplicationService;
+import ru.zhukov.ait.domain.Employee;
 import ru.zhukov.ait.domain.Enterprise;
+import ru.zhukov.ait.domain.Order;
 import ru.zhukov.ait.domain.TypeOrder;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
@@ -22,9 +32,22 @@ public class BaseWindowController implements Initializable {
     private ApplicationDataService applicationDataService;
 
     @FXML
+    private TableView<Order> prOrderView;
+    @FXML
     private ComboBox<Enterprise> aitEnterprise;
     @FXML
     private ComboBox<TypeOrder> aitOrderType;
+
+    @FXML
+    private DatePicker aitOrderDateBegin;
+
+    @FXML
+    private TableColumn<Order,LocalDate> prDate;
+    @FXML
+    private TableColumn<Order,LocalDate> prNumber;
+    @FXML
+    private TableColumn<Order,String> prEmployee;
+
 
     public BaseWindowController(ApplicationService applicationService) {
         this.applicationService = applicationService;
@@ -59,9 +82,31 @@ public class BaseWindowController implements Initializable {
 
 
         aitEnterprise.getSelectionModel().selectedItemProperty().addListener(this::enterpriseChanged);
+        aitOrderType.getSelectionModel().selectedItemProperty().addListener(this::orderTypeChanged);
+
+        prNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        prDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        prEmployee.setCellValueFactory(param -> {
+            return  new ReadOnlyStringWrapper(param.getValue().getEmployee().getFullName());
+        });
+
 
     }
 
+    private void orderTypeChanged(ObservableValue<? extends TypeOrder> observable,TypeOrder oldType, TypeOrder newType) {
+        LocalDate localDateBegin = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate localDateEnd = localDateBegin.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.printf("Date between %s and %s %n",localDateBegin,localDateEnd);
+        CompletableFuture.supplyAsync(()->applicationDataService.listOrderByTypeAndDateBeginBetween(newType,localDateBegin,localDateEnd))
+                         .thenAccept((order)-> {
+                             Platform.runLater(()-> {
+                                 prOrderView.getItems().clear();
+                                 prOrderView.getItems().addAll(order);
+                             });
+
+                         });
+
+    }
 
 
     private void enterpriseChanged(ObservableValue<? extends  Enterprise> observable,Enterprise oldEnterprise,Enterprise newEnterprise) {

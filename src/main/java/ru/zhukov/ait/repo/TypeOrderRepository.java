@@ -8,4 +8,5 @@ import ru.zhukov.ait.domain.TypeOrder;
 
 
 public interface TypeOrderRepository extends JpaRepository<TypeOrder,String> {
+    TypeOrder findByName(String name);
 }

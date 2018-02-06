@@ -19,7 +19,7 @@ public enum Enterprise {
         }
         @Override
         public String nameDb() {
-            return "polypack_tarif";
+            return "polypack";
         }
     },
 

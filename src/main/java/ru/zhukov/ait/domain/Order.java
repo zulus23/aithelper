@@ -2,10 +2,9 @@ package ru.zhukov.ait.domain;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "prikaz")
@@ -20,5 +19,21 @@ public class Order {
     @Id
     @Column(name = "key_f")
     private String id;
+    @Column(name = "data_pr")
+    private LocalDate  date;
+    @Column(name = "nomer")
+    private String number;
+    @OneToOne
+    @JoinColumn(name = "pers_id")
+    private Employee employee;
+    @Column(name = "date_begin")
+    private LocalDate  dateBegin;
+    @Column(name = "date_end")
+    private LocalDate  dateEnd;
+    @Column(name = "days")
+    private BigDecimal day;
+    @OneToOne
+    @JoinColumn(name = "tip")
+    private TypeOrder typeOrder;
 
 }
