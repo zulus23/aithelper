@@ -18,6 +18,9 @@ public class Employee {
     @Id
     @Column(name = "pers_id")
     private String id;
+    @Column(name = "tabel_n")
+    private String tabelNumber;
+
     @Column(name = "first_name")
     private String name;
     @Column(name = "name")

@@ -89,14 +89,23 @@ public class BaseWindowController implements Initializable {
         prEmployee.setCellValueFactory(param -> {
             return  new ReadOnlyStringWrapper(param.getValue().getEmployee().getFullName());
         });
-
+        aitOrderDateBegin.setOnAction(event -> {
+            LocalDate localDateBegin = aitOrderDateBegin.getValue().with(TemporalAdjusters.firstDayOfMonth());
+            LocalDate localDateEnd = localDateBegin.with(TemporalAdjusters.lastDayOfMonth());
+            fillOrderTableView(aitOrderType.getSelectionModel().getSelectedItem(), localDateBegin, localDateEnd);
+        });
 
     }
 
     private void orderTypeChanged(ObservableValue<? extends TypeOrder> observable,TypeOrder oldType, TypeOrder newType) {
         LocalDate localDateBegin = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
         LocalDate localDateEnd = localDateBegin.with(TemporalAdjusters.lastDayOfMonth());
-        System.out.printf("Date between %s and %s %n",localDateBegin,localDateEnd);
+
+        fillOrderTableView(newType, localDateBegin, localDateEnd);
+
+    }
+
+    private void fillOrderTableView(TypeOrder newType, LocalDate localDateBegin, LocalDate localDateEnd) {
         CompletableFuture.supplyAsync(()->applicationDataService.listOrderByTypeAndDateBeginBetween(newType,localDateBegin,localDateEnd))
                          .thenAccept((order)-> {
                              Platform.runLater(()-> {
@@ -105,7 +114,6 @@ public class BaseWindowController implements Initializable {
                              });
 
                          });
-
     }
 
 

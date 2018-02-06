@@ -36,4 +36,8 @@ public class Order {
     @JoinColumn(name = "tip")
     private TypeOrder typeOrder;
 
+    @Column(name = "flag_z")
+    private StatusOrder statusOrder;
+
+
 }
