@@ -1,8 +1,6 @@
 package ru.zhukov.ait.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +10,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "const")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @EqualsAndHashCode(of = {"id"})
 public class Employee {
     @Id
