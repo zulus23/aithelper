@@ -8,6 +8,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import ru.zhukov.ait.domain.Enterprise;
 
 import javax.persistence.EntityManagerFactory;
@@ -17,6 +18,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = {"ru.zhukov.ait"})
 @EnableJpaRepositories(basePackages = {"ru.zhukov.ait"})
+@EnableTransactionManagement
 public class DatabaseConfig {
 
 

@@ -43,6 +43,10 @@ public class Order {
     @JoinColumn(name = "otp_tip")
     private TypeVacation typeVacation;
 
+    @OneToOne(mappedBy = "order",cascade = {CascadeType.ALL})
+    private EmployeeJournalVacation journalVacation;
+
+
 
 
 }
