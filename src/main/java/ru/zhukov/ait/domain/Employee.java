@@ -32,7 +32,7 @@ public class Employee {
 
 
     public String getFullName(){
-        return String.format("%s %s %s",getName().trim(),getSurname().trim(),getLastname().trim());
+        return String.format("%s %s %s",getSurname().trim(),getName().trim(),getLastname().trim());
     }
 
 }

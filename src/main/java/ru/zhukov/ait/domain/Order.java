@@ -37,7 +37,7 @@ public class Order {
     private TypeOrder typeOrder;
 
     @Column(name = "flag_z")
-    private Boolean statusOrder;
+    private Boolean statusCalculate;
 
     @OneToOne
     @JoinColumn(name = "otp_tip")

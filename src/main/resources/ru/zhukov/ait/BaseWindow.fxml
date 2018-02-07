@@ -67,7 +67,7 @@
             <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
                   <Button layoutX="478.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Button" AnchorPane.rightAnchor="15.0" />
-                  <Button layoutX="572.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="Button" AnchorPane.rightAnchor="120.0" />
+                  <Button fx:id="bChangeStatusCalculate" layoutX="572.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="171.0" text="Сбросить статус расчитан" AnchorPane.rightAnchor="120.0" />
                   <DatePicker fx:id="aitOrderDateBegin" layoutX="7.0" layoutY="8.0" AnchorPane.leftAnchor="7.0" />
                </children>
             </AnchorPane>

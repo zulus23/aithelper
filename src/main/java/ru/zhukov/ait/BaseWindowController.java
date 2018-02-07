@@ -6,10 +6,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
@@ -56,6 +53,9 @@ public class BaseWindowController implements Initializable {
     private TableColumn<Order,LocalDate> prDateEnd;
     @FXML
     private TableColumn<Order,String> prTypeVacation;
+
+    @FXML
+    private Button bChangeStatusCalculate;
 
 
 
@@ -109,14 +109,22 @@ public class BaseWindowController implements Initializable {
         });
         prStatus.setCellValueFactory(param -> {
             Order order = param.getValue();
-            return  new ReadOnlyBooleanWrapper(order.getStatusOrder());
+            return  new ReadOnlyBooleanWrapper(order.getStatusCalculate());
         });
         prStatus.setCellFactory(CheckBoxTableCell.<Order>forTableColumn(prStatus));
         prTypeVacation.setCellValueFactory(param -> {
             Optional<TypeVacation> optional = Optional.ofNullable(param.getValue().getTypeVacation());
             return new ReadOnlyStringWrapper(optional.map(t -> t.getDescription()).orElse(""));
         });
+        bChangeStatusCalculate.setOnAction(event -> {
+            Order order = prOrderView.getSelectionModel().getSelectedItem();
+           Optional.ofNullable(applicationDataService.changeMarkCalculate(order))
+                   .ifPresent(o -> {
+                     order.setStatusCalculate(o.getStatusCalculate());
+            });
+            prOrderView.refresh();
 
+        });
 
     }
 

@@ -4,7 +4,7 @@ public enum Enterprise {
     GOTEK("ГОТЭК"){
         @Override
         String connectString() {
-            return "jdbc:jtds:sqlserver://srv-sqlbox/ait_db;instance=AIT";
+            return "jdbc:jtds:sqlserver://srv-sqlbox/ait_db_tarif;instance=AIT";
         }
 
         @Override
@@ -15,18 +15,18 @@ public enum Enterprise {
     POLYPACK("Полипак") {
         @Override
         String connectString() {
-            return "jdbc:jtds:sqlserver://srv-sqlbox/polypack;instance=AIT";
+            return "jdbc:jtds:sqlserver://srv-sqlbox/polypack_tarif;instance=AIT";
         }
         @Override
         public String nameDb() {
-            return "polypack";
+            return "polypack_tarif";
         }
     },
 
     INVESTHOME("Инвест Номе") {
         @Override
         String connectString() {
-            return "jdbc:jtds:sqlserver://srv-sqlbox/polypack;instance=AIT";
+            return "jdbc:jtds:sqlserver://srv-sqlbox/polypack_tarif;instance=AIT";
         }
         @Override
         public String nameDb() {

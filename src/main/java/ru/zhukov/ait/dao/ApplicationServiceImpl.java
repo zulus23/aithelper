@@ -9,6 +9,7 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.zhukov.ait.config.DatabaseConfig;
 import ru.zhukov.ait.domain.Enterprise;
@@ -23,6 +24,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Repository
 public class ApplicationServiceImpl implements ApplicationService {
 
     private final  Map<Enterprise,ApplicationDataService> dataServiceMap = new WeakHashMap<>();

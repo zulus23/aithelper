@@ -1,6 +1,7 @@
 package ru.zhukov.ait.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ru.zhukov.ait.domain.Order;
 import ru.zhukov.ait.domain.TypeOrder;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Repository
 public class ApplicationDataServiceImpl implements ApplicationDataService {
 
 
@@ -36,7 +38,11 @@ public class ApplicationDataServiceImpl implements ApplicationDataService {
         return orderRepository.findByTypeOrderAndDateBeginBetween(order,dateBegin,dateEnd);
     }
 
-
+    @Override
+    public Order changeMarkCalculate(Order order) {
+        order.setStatusCalculate(false);
+        return orderRepository.save(order);
+    }
 
 
 }
