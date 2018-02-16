@@ -156,9 +156,8 @@ public class BaseWindowController implements Initializable {
                              Platform.runLater(()-> {
                                  aitOrderType.getItems().clear();
                              });
-                           }).thenApplyAsync((e)->{
-                               return e.listTypeOrder();
-                           }).whenComplete((l,error)->{
+                           }).thenApplyAsync(ApplicationDataService::listTypeOrder)
+                             .whenComplete((l,error)->{
                               Platform.runLater(()->{
                                   aitOrderType.getItems().addAll(l);
                                   aitOrderType.getSelectionModel().select(0);
