@@ -1,4 +1,4 @@
-package ru.zhukov.ait.domain;
+package ru.zhukov.ait.t;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

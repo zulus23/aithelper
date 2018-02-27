@@ -20,6 +20,7 @@ import ru.zhukov.ait.domain.TypeVacation;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
@@ -108,8 +109,8 @@ public class BaseWindowController implements Initializable {
             fillOrderTableView(aitOrderType.getSelectionModel().getSelectedItem(), localDateBegin, localDateEnd);
         });
         prStatus.setCellValueFactory(param -> {
-            Order order = param.getValue();
-            return  new ReadOnlyBooleanWrapper(order.getStatusCalculate());
+            Optional<Order> order = Optional.ofNullable(param.getValue());
+            return  new ReadOnlyBooleanWrapper(order.map(o->o.getStatusCalculate()).orElse(false) );
         });
         prStatus.setCellFactory(CheckBoxTableCell.<Order>forTableColumn(prStatus));
         prTypeVacation.setCellValueFactory(param -> {
@@ -156,14 +157,22 @@ public class BaseWindowController implements Initializable {
                              Platform.runLater(()-> {
                                  aitOrderType.getItems().clear();
                              });
-                           }).thenApplyAsync((e)->{
-                               return e.listTypeOrder();
-                           }).whenComplete((l,error)->{
+                           }).thenApplyAsync(e->   e.listTypeOrder())
+                            .whenComplete((l,error)->{
+                              if(Objects.nonNull(error )){
+                                  Platform.runLater(()->{
+                                      Alert alert = new Alert(Alert.AlertType.ERROR, error.toString());
+                                      alert.setTitle("Error");
+                                      alert.show();
+                                  });
+                              } else{
                               Platform.runLater(()->{
                                   aitOrderType.getItems().addAll(l);
                                   aitOrderType.getSelectionModel().select(0);
                               });
-                            });
+                            }
+                                    });
+
 
 
 

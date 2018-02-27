@@ -62,6 +62,16 @@ public class ApplicationServiceImpl implements ApplicationService {
                     return  ctx.getBean(ApplicationDataService.class);
                 }));
             }
+            case CPU:{
+
+                return CompletableFuture.supplyAsync(()->dataServiceMap.computeIfAbsent(enterprise,(e)-> {
+                    ctx = new AnnotationConfigApplicationContext();
+                    ctx.registerBean("enterprise",Enterprise.class,() -> Enterprise.CPU);
+                    ctx.registerBean(DatabaseConfig.class);
+                    ctx.refresh();
+                    return  ctx.getBean(ApplicationDataService.class);
+                }));
+            }
             case INVESTHOME:{
 
                 return CompletableFuture.supplyAsync(()->dataServiceMap.computeIfAbsent(enterprise,(e)-> {

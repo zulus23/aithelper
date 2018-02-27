@@ -1,7 +1,10 @@
-package ru.zhukov.ait.domain;
+package ru.zhukov.ait.t;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.zhukov.ait.domain.Employee;
+import ru.zhukov.ait.domain.Order;
+import ru.zhukov.ait.domain.TypeVacation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

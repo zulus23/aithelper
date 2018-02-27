@@ -22,6 +22,17 @@ public enum Enterprise {
             return "polypack_tarif";
         }
     },
+    CPU("Готэк-ЦПУ") {
+        @Override
+        String connectString() {
+            return "jdbc:jtds:sqlserver://srv-sqlbox/ait_cpu;instance=AIT";
+        }
+        @Override
+        public String nameDb() {
+            return "ait_cpu";
+        }
+    },
+
 
     INVESTHOME("Инвест Номе") {
         @Override
